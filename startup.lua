@@ -25,7 +25,17 @@ local function readFile(path)
   return s
 end
 
+-- Room for a file of `need` bytes: old logs go first if the disk is full.
+local function makeRoom(need)
+  local junk = { "ship.log.old", "controller.log.old", "ship.log", "controller.log" }
+  for _, f in ipairs(junk) do
+    if fs.getFreeSpace("/") >= need + 20000 then return end
+    if fs.exists(f) then fs.delete(f) print("Low on disk space - deleted " .. f) end
+  end
+end
+
 local function writeFile(path, s)
+  makeRoom(#s)
   local h = fs.open(path .. ".new", "w")
   h.write(s)
   h.close()

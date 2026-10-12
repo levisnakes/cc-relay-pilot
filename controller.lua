@@ -21,7 +21,7 @@
 -- Everything is written to controller.log (the run before is kept as
 -- controller.log.old).
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 local PROTOCOL = "relaypilot"
 local CONFIG_FILE = "controller.cfg"
@@ -58,7 +58,7 @@ for _, name in ipairs(peripheral.getNames()) do
 end
 
 -- ---------- log ----------
-local LOG_FILE, LOG_LIMIT = "controller.log", 300000
+local LOG_FILE, LOG_LIMIT = "controller.log", 120000
 local logFile, logBytes, logFull = nil, 0, false
 local logStart = now()
 local function log(fmt, ...)

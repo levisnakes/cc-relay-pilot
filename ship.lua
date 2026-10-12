@@ -23,7 +23,7 @@
 --
 -- Everything is written to ship.log (the run before is ship.log.old).
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 -- ======================== SETTINGS ===========================
 -- To keep changes over updates, put them in ship_settings.lua instead.
@@ -52,7 +52,7 @@ end
 local function now() return os.epoch("utc") / 1000 end
 
 -- ---------- log ----------
-local LOG_FILE, LOG_LIMIT = "ship.log", 300000
+local LOG_FILE, LOG_LIMIT = "ship.log", 120000
 local logFile, logBytes, logFull = nil, 0, false
 local logStart = now()
 local function log(fmt, ...)
