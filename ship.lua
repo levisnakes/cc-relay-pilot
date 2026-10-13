@@ -23,7 +23,7 @@
 --
 -- Everything is written to ship.log (the run before is ship.log.old).
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 -- ======================== SETTINGS ===========================
 -- To keep changes over updates, put them in ship_settings.lua instead.
@@ -63,8 +63,8 @@ local function log(fmt, ...)
     logFull = true
     line = "log full, stopped writing"
   end
-  logFile.writeLine(line)
-  logFile.flush()
+  -- A full disk must never stop the program.
+  if not pcall(function() logFile.writeLine(line) logFile.flush() end) then logFile = nil end
 end
 
 -- ---------- hardware ----------

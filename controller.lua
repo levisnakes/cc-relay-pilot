@@ -21,7 +21,7 @@
 -- Everything is written to controller.log (the run before is kept as
 -- controller.log.old).
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 local PROTOCOL = "relaypilot"
 local CONFIG_FILE = "controller.cfg"
@@ -69,8 +69,8 @@ local function log(fmt, ...)
     logFull = true
     line = "log full, stopped writing"
   end
-  logFile.writeLine(line)
-  logFile.flush()
+  -- A full disk must never stop the program.
+  if not pcall(function() logFile.writeLine(line) logFile.flush() end) then logFile = nil end
 end
 
 -- ---------- saved setup ----------
